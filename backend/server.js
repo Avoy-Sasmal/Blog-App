@@ -1,5 +1,6 @@
 import express from "express"
 import dotenv from "dotenv"
+import cors from "cors"
 import connectDB from "./db/db.js";
 import noteRoutes from "./routes/notes.route.js"
 dotenv.config()
@@ -7,6 +8,7 @@ dotenv.config()
 const app = express()
 const port = process.env.PORT || 3000 ; 
 
+app.use(cors())
 app.use(express.json())
 
 // coonectDB  

@@ -32,23 +32,26 @@ const getNotes = async (req, res) => {
 };
 
 
- const getNoteById = async (req, res) => {
+const getNoteById = async (req, res) => {
   try {
     const note = await Note.findById(req.params.id);
-    if (!note){
+    if (!note) {
       return res.status(404).json({
-         message: "Note not found"
-         });
-    } 
+        success: false,
+        message: "Note not found",
+      });
+    }
     res.json({
       success: true,
-      message: "This note is exist , fetch detailed  successfully",
+      message: "Note fetched successfully",
+      data: note, 
     });
   } catch (error) {
-    console.log(`error while finding specific note  `);
-    
+    console.log(`error while finding specific note`, error);
+    res.status(500).json({ success: false, message: "Server error" });
   }
 };
+
 
  const updateNote = async (req, res) => {
   try {
