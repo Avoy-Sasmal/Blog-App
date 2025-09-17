@@ -1,0 +1,24 @@
+import express from "express"
+import dotenv from "dotenv"
+import connectDB from "./db/db.js";
+import noteRoutes from "./routes/notes.route.js"
+dotenv.config()
+
+const app = express()
+const port = process.env.PORT || 3000 ; 
+
+app.use(express.json())
+
+// coonectDB  
+connectDB();
+
+// routes 
+app.use("/api/v1",noteRoutes)
+
+app.listen(port,()=>{
+  console.log(`Server is ruuning on http://localhost:${port}`);
+  
+})
+
+
+
