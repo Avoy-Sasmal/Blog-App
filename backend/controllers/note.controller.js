@@ -2,18 +2,18 @@ import Note from "../models/note.model.js";
 
 
 //create 
-const createNote = async (req, res) => {
-  try {
-    const { title, content } = req.body;
-    const note = await Note.create({ title, content });
-    res.status(201).json({
-      success: true , 
-      message:"note created successfully"
-    });
-  } catch (error) {
-    console.log(`note creation Error `);
-  }
-};
+// const createNote = async (req, res) => {
+//   try {
+//     const { title, content } = req.body;
+//     const note = await Note.create({ title, content });
+//     res.status(201).json({
+//       success: true , 
+//       message:"note created successfully"
+//     });
+//   } catch (error) {
+//     console.log(`note creation Error `);
+//   }
+// };
 
 
 //get notes 
@@ -93,4 +93,4 @@ const getNoteById = async (req, res) => {
   }
 };
 
-export { createNote, getNotes, getNoteById, updateNote,deleteNote };
+export {  getNotes, getNoteById, updateNote,deleteNote };

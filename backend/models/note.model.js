@@ -10,6 +10,9 @@ const noteSchema = new mongoose.Schema(
       type: String,
       required: [true, "Please add content"],
     },
+    image: { 
+      type: String 
+    }
   },
   { timestamps: true }
 );
