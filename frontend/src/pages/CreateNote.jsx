@@ -53,11 +53,13 @@ import {
   FiEdit3,
   FiType,
   FiFileText,
+  FiUpload,
 } from "react-icons/fi";
 
 export default function CreateNote() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+  const [file, setFile] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
@@ -67,7 +69,20 @@ export default function CreateNote() {
 
     setIsLoading(true);
     try {
-      await api.post("/notes", { title, content });
+      // use FormData for file + text fields
+      const formData = new FormData();
+      formData.append("title", title);
+      formData.append("content", content);
+      if (file) {
+        formData.append("file", file);
+      }
+
+      await api.post("/notes", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
       navigate("/");
     } catch (error) {
       console.error("Error creating note:", error);
@@ -140,6 +155,25 @@ export default function CreateNote() {
                 />
               </div>
 
+              {/* File Upload */}
+              <div className="space-y-2">
+                <label className="flex items-center space-x-2 text-sm font-medium text-gray-300">
+                  <FiUpload className="text-purple-400" />
+                  <span>Upload File</span>
+                </label>
+                <input
+                  type="file"
+                  className="w-full text-gray-300 bg-gray-700 rounded-xl p-2 border border-gray-600 cursor-pointer focus:outline-none focus:ring-2 focus:ring-purple-500/20"
+                  onChange={(e) => setFile(e.target.files[0])}
+                />
+                {file && (
+                  <p className="text-sm text-gray-400 mt-1">
+                    Selected:{" "}
+                    <span className="text-purple-300">{file.name}</span>
+                  </p>
+                )}
+              </div>
+
               {/* Action Buttons */}
               <div className="flex flex-col sm:flex-row gap-4 pt-6 border-t border-gray-700">
                 <button
@@ -166,3 +200,4 @@ export default function CreateNote() {
     </div>
   );
 }
+
