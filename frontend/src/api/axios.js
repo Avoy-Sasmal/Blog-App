@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "http://localhost:3000/api/v1",
+  baseURL: " https://blog-app-q3m9.onrender.com/api/v1",
 });
 
 // Request interceptor to add auth token
